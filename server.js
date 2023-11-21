@@ -4,6 +4,21 @@ const app = express();
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
+const serviceAccount = require("./night-reserve-firebase-adminsdk-ublke-4f1fc14c3b.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+function getDagensDato() {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const year = today.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
+
 // Enable CORS
 app.use(
   cors({
@@ -21,6 +36,23 @@ app.get("/", (req, res) => {
 app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const uid = req.params.uid;
   const data = req.body;
+  const dateCode = getDagensDato();
+
+  try {
+    admin
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .collection("stempel")
+      .doc(dateCode)
+      .set({
+        time: new Date().toLocaleTimeString("da-DK"),
+      });
+    res.json({ uid: uid, data: data, dateCode: getDagensDato() });
+  } catch (error) {
+    console.log("error", error);
+    res.json({ error: error });
+  }
 
   // Use the data from the request body
 
