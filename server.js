@@ -11,12 +11,14 @@ app.get("/", (req, res) => {
   res.send("Hello, World! get");
 });
 
-app.post("/api/checkin/:uid", (req, res) => {
+app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const uid = req.params.uid;
-  const body = req.body;
-  console.log("uid", uid);
-  console.log("body", body);
-  res.send(`Hello, World! post uid: ${uid}`);
+  const data = req.body;
+
+  // Use the data from the request body
+  console.log(data);
+
+  res.send(`Hello, World! post uid: ${uid}, data: ${data}`);
 });
 
 const PORT = process.env.PORT || 3003;
