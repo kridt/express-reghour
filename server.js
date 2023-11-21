@@ -2,13 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-
+const bodyParser = require("body-parser");
+const admin = require("firebase-admin");
 // Enable CORS
 app.use(
   cors({
     origin: "*",
   })
 );
+
+app.use(bodyParser.json());
 
 // Define the root route
 app.get("/", (req, res) => {
