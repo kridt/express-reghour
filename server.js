@@ -11,8 +11,10 @@ app.get("/", (req, res) => {
   res.send("Hello, World! get");
 });
 
-app.post("/api/checkin", (req, res) => {
-  res.send("Hello, World! post");
+app.post("/api/checkin/:uid", (req, res) => {
+  const uid = req.params.uid;
+
+  res.send(`Hello, World! post uid: ${uid}`);
 });
 
 const PORT = process.env.PORT || 3003;
