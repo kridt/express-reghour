@@ -47,8 +47,11 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
       .doc(dateCode)
       .set({
         time: new Date().toLocaleTimeString("da-DK"),
+      })
+      .then(() => {
+        console.log(`Document successfully written! ${uid}`);
+        res.json({ uid: uid, data: data, dateCode: getDagensDato() });
       });
-    res.json({ uid: uid, data: data, dateCode: getDagensDato() });
   } catch (error) {
     console.log("error", error);
     res.json({ error: error });
