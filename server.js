@@ -13,7 +13,9 @@ app.get("/", (req, res) => {
 
 app.post("/api/checkin/:uid", (req, res) => {
   const uid = req.params.uid;
-
+  const body = req.body;
+  console.log("uid", uid);
+  console.log("body", body);
   res.send(`Hello, World! post uid: ${uid}`);
 });
 
