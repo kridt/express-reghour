@@ -4,7 +4,11 @@ const app = express();
 require("dotenv").config();
 
 // Enable CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Define the root route
 app.get("/", (req, res) => {
@@ -16,9 +20,8 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const data = req.body;
 
   // Use the data from the request body
-  console.log(data);
 
-  res.send(`Hello, World! post uid: ${uid}, data: ${data}`);
+  res.json({ uid: uid, data: data });
 });
 
 const PORT = process.env.PORT || 3003;
