@@ -55,7 +55,12 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
       })
       .then(() => {
         console.log(`Document successfully written! ${uid}`);
-        res.json({ uid: uid, data: data, dateCode: getDagensDato() });
+        res.json({
+          uid: uid,
+          dato: dateCode,
+          funktion: "stemple Ind",
+          time: new Date().toLocaleTimeString("da-DK"),
+        });
       });
   } catch (error) {
     console.log("error", error);
@@ -86,7 +91,12 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
         },
       });
 
-    res.json({ uid: uid, dateCode: dateCode });
+    res.json({
+      uid: uid,
+      dato: dateCode,
+      time: new Date().toLocaleTimeString("da-DK"),
+      function: "stemple Ud",
+    });
   } catch (error) {
     res.json({ error: error });
   }
