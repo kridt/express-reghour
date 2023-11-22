@@ -85,6 +85,8 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
           time: new Date().toLocaleTimeString("da-DK"),
         },
       });
+
+    res.json({ uid: uid, dateCode: dateCode });
   } catch (error) {
     res.json({ error: error });
   }
