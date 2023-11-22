@@ -37,15 +37,6 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const uid = req.params.uid;
   const data = req.body;
   const dateCode = getDagensDato();
-  const stempleInData = {
-    time: new Date().toLocaleTimeString("da-DK"),
-    date: dateCode,
-    funktion: "stemple Ind",
-    lokation: {
-      lat: data.latitude,
-      lng: data.longitude,
-    },
-  };
   console.log(data);
   try {
     admin
@@ -54,7 +45,11 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
       .doc(uid)
       .collection("stempel")
       .doc(dateCode)
-      .set(stempleInData)
+      .set({
+        date: dateCode,
+        funktion: "stemple Ind",
+        time: new Date().toLocaleTimeString("da-DK"),
+      })
       .then(() => {
         console.log(`Document successfully written! ${uid}`);
         res.json({ uid: uid, data: data, dateCode: getDagensDato() });
