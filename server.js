@@ -67,6 +67,29 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   res.json({ uid: uid, data: data });
 });
 
+app.post("/api/checkout/:uid", express.json(), (req, res) => {
+  const uid = req.params.uid;
+  const dateCode = getDagensDato();
+
+  try {
+    admin
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .collection("stempel")
+      .doc(dateCode)
+      .update({
+        stempelOut: {
+          date: dateCode,
+          funktion: "stemple Ud",
+          time: new Date().toLocaleTimeString("da-DK"),
+        },
+      });
+  } catch (error) {
+    res.json({ error: error });
+  }
+});
+
 const PORT = process.env.PORT || 3003;
 // Start the server
 app.listen(PORT, () => {
