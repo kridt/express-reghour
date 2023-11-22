@@ -68,8 +68,6 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   }
 
   // Use the data from the request body
-
-  res.json({ uid: uid, data: data });
 });
 
 app.post("/api/checkout/:uid", express.json(), (req, res) => {
