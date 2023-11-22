@@ -38,6 +38,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const data = req.body;
   const dateCode = getDagensDato();
   console.log(data);
+
   try {
     admin
       .firestore()
@@ -46,9 +47,11 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
       .collection("stempel")
       .doc(dateCode)
       .set({
-        date: dateCode,
-        funktion: "stemple Ind",
-        time: new Date().toLocaleTimeString("da-DK"),
+        stempelIn: {
+          date: dateCode,
+          funktion: "stemple Ind",
+          time: new Date().toLocaleTimeString("da-DK"),
+        },
       })
       .then(() => {
         console.log(`Document successfully written! ${uid}`);
