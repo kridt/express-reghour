@@ -62,7 +62,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
           uid: uid,
           dato: dateCode,
           funktion: "stemple Ind",
-          time: time,
+          time: data.body.time || backUpTime,
           location: location,
         });
       });
@@ -92,7 +92,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
         stempelOut: {
           date: dateCode,
           funktion: "stemple Ud",
-          time: time || backUpTime,
+          time: data.body.time || backUpTime || "ingen tid",
           location: data.body.location || "ingen lokation",
         },
       });
@@ -100,7 +100,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
     res.json({
       uid: uid,
       dato: dateCode,
-      time: time,
+      time: data.body.time || backUpTime,
       function: "stemple Ud",
       location: data.body.location,
     });
