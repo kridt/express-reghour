@@ -78,9 +78,8 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
   const dateCode = getDagensDato();
 
   const data = req.body;
-  const location = data.location;
 
-  console.log(location);
+  console.log(data);
   try {
     admin
       .firestore()
