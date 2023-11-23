@@ -5,12 +5,12 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const serviceAccount = require("./night-reserve-firebase-adminsdk-ublke-4f1fc14c3b.json");
-const options = { timezone: "Europe/Copenhagen", hour12: false };
+const options = { timezone: "Europe/Copenhagen" };
 const time = new Date().toLocaleTimeString("da-DK", options);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-
+console.log("time", time);
 function getDagensDato() {
   const today = new Date();
   const day = String(today.getDate()).padStart(2, "0");
