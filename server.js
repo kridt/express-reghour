@@ -52,7 +52,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
           date: dateCode,
           funktion: "stemple Ind",
           time: new Date().toLocaleTimeString("da-DK"),
-          location: location,
+          location: location || "ingen lokation",
         },
       })
       .then(() => {
@@ -91,7 +91,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
           date: dateCode,
           funktion: "stemple Ud",
           time: new Date().toLocaleTimeString("da-DK"),
-          location: location,
+          location: location || "ingen lokation",
         },
       });
 
