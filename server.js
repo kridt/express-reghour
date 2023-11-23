@@ -5,7 +5,7 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const serviceAccount = require("./night-reserve-firebase-adminsdk-ublke-4f1fc14c3b.json");
-const time = new Date().getTime();
+const time = new Date().toLocaleTimeString("de-DE");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -101,7 +101,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
       dato: dateCode,
       time: new Date().toLocaleTimeString("da-DK"),
       function: "stemple Ud",
-      location: location,
+      location: data.body.location,
     });
   } catch (error) {
     res.json({ error: error });
