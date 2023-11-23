@@ -38,6 +38,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const data = req.body;
   const dateCode = getDagensDato();
   console.log(data);
+  const location = data.location;
 
   try {
     admin
@@ -51,6 +52,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
           date: dateCode,
           funktion: "stemple Ind",
           time: new Date().toLocaleTimeString("da-DK"),
+          location: location,
         },
       })
       .then(() => {
@@ -60,6 +62,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
           dato: dateCode,
           funktion: "stemple Ind",
           time: new Date().toLocaleTimeString("da-DK"),
+          location: location,
         });
       });
   } catch (error) {
@@ -74,6 +77,8 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
   const uid = req.params.uid;
   const dateCode = getDagensDato();
 
+  const data = req.body;
+  const location = data.location;
   try {
     admin
       .firestore()
@@ -86,6 +91,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
           date: dateCode,
           funktion: "stemple Ud",
           time: new Date().toLocaleTimeString("da-DK"),
+          location: location,
         },
       });
 
@@ -94,6 +100,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
       dato: dateCode,
       time: new Date().toLocaleTimeString("da-DK"),
       function: "stemple Ud",
+      location: location,
     });
   } catch (error) {
     res.json({ error: error });
