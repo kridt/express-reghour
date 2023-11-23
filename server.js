@@ -5,7 +5,8 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const serviceAccount = require("./night-reserve-firebase-adminsdk-ublke-4f1fc14c3b.json");
-const time = new Date().toLocaleTimeString("de-DE");
+const options = { timezone: "Europe/Copenhagen", hour12: false };
+const time = new Date().toLocaleTimeString("da-DK", options);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
