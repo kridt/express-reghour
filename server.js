@@ -38,7 +38,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const data = req.body;
   const dateCode = getDagensDato();
   console.log(data);
-  const location = data.location;
+  const location = data.body.location;
 
   try {
     admin
@@ -92,7 +92,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
           date: dateCode,
           funktion: "stemple Ud",
           time: new Date().toLocaleTimeString("da-DK"),
-          location: location || "ingen lokation",
+          location: data.body.location || "ingen lokation",
         },
       });
 
