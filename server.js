@@ -5,7 +5,7 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const serviceAccount = require("./night-reserve-firebase-adminsdk-ublke-4f1fc14c3b.json");
-
+const time = new Date().getTime();
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -51,7 +51,7 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
         stempelIn: {
           date: dateCode,
           funktion: "stemple Ind",
-          time: new Date().toLocaleTimeString("da-DK"),
+          time: time,
           location: location || "ingen lokation",
         },
       })
@@ -91,7 +91,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
         stempelOut: {
           date: dateCode,
           funktion: "stemple Ud",
-          time: new Date().toLocaleTimeString("da-DK"),
+          time: time,
           location: data.body.location || "ingen lokation",
         },
       });
