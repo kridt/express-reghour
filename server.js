@@ -10,7 +10,7 @@ const backUpTime = new Date().toLocaleTimeString("da-DK");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-console.log("time", time);
+
 function getDagensDato() {
   const today = new Date();
   const day = String(today.getDate()).padStart(2, "0");
