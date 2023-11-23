@@ -79,7 +79,7 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
 
   const data = req.body;
 
-  console.log(data);
+  console.log(data.body.location);
   try {
     admin
       .firestore()
