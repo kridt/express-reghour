@@ -40,15 +40,31 @@ app.post("/api/checkin/:uid", express.json(), (req, res) => {
   const dateCode = getDagensDato();
   console.log(data);
   const location = data.body.location;
-
+  const periode = data.body.periode;
   try {
     admin
       .firestore()
       .collection("users")
       .doc(uid)
+      .collection("lonperioder")
+      .doc(periode)
+      .set({
+        periode: periode,
+        latestStempel: dateCode,
+      });
+
+    admin
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .collection("lonperioder")
+
+      .doc(periode)
       .collection("stempel")
       .doc(dateCode)
       .set({
+        dayDone: false,
+        date: dateCode,
         stempelIn: {
           date: dateCode,
           funktion: "stemple Ind",
@@ -79,16 +95,20 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
   const dateCode = getDagensDato();
 
   const data = req.body;
-
+  const periode = data.body.periode;
   console.log(data.body.location);
   try {
     admin
       .firestore()
       .collection("users")
       .doc(uid)
+      .collection("lonperioder")
+      .doc(periode)
       .collection("stempel")
       .doc(dateCode)
       .update({
+        dayDone: true,
+        date: dateCode,
         stempelOut: {
           date: dateCode,
           funktion: "stemple Ud",
