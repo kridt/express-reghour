@@ -132,6 +132,26 @@ app.post("/api/checkout/:uid", express.json(), (req, res) => {
 //ekstra stempel ind
 app.post("/api/ekstrastempel/ind/:uid", express.json(), (req, res) => {
   console.log(req.body);
+  const uid = req.params.uid;
+
+  admin
+    .firestore()
+    .collection("users")
+    .doc(uid)
+    .collection("lonperioder")
+    .doc(req.body.periode)
+    .collection("stempel")
+    .doc(req.body.date)
+    .update({
+      dayDone: false,
+      date: req.body.date,
+      stempelIn: {
+        date: req.body.date,
+        funktion: "stemple Ind",
+        time: req.body.time || backUpTime,
+        location: "ingen lokation, ekstra stempel ind",
+      },
+    });
 
   res.json({ message: "ok stemple ind" });
 });
